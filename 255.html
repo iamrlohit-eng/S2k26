@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Shrunga 2K26</title>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+[data-theme="dark"]{
+  --bg:#080810;--mid:#0F0F1E;--card:#161628;--text:#F4EFE6;--muted:#8A85A8;
+  --border:rgba(245,200,66,0.15);--border2:rgba(245,200,66,0.3);
+  --nav-bg:rgba(8,8,16,0.9);--toggle-bg:#161628;--toggle-icon:☀️;
+  --map-bg:#0D0D20;--map-road:#1E1E3A;--map-road2:#252540;--map-label:rgba(244,239,230,0.5);
+}
+[data-theme="light"]{
+  --bg:#FFF8F0;--mid:#FFF2E5;--card:#FFFFFF;--text:#1A1020;--muted:#6B6280;
+  --border:rgba(255,122,26,0.18);--border2:rgba(255,122,26,0.35);
+  --nav-bg:rgba(255,248,240,0.92);--toggle-bg:#FFF2E5;--toggle-icon:🌙;
+  --map-bg:#F0EAE0;--map-road:#E0D8CE;--map-road2:#D4CCC2;--map-label:rgba(26,16,32,0.55);
+}
+
+:root{--saffron:#FF7A1A;--gold:#F5C842;--green:#1DB87A;--silver:#C0C0D0;--bronze:#CD7F32}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background 0.35s,color 0.35s}
+
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:0.8}90%{opacity:0.3}100%{transform:translateY(-20vh) rotate(720deg);opacity:0}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0.85rem 2.5rem;background:var(--nav-bg);backdrop-filter:blur(18px);border-bottom:0.5px solid var(--border);transition:all 0.3s}
+nav.scrolled{padding:0.6rem 2.5rem}
+.logo-main{font-family:'Yeseva One',serif;font-size:1.4rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo-sub{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted)}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.theme-toggle{background:var(--toggle-bg);border:0.5px solid var(--border);border-radius:20px;padding:0.3rem 0.7rem;cursor:pointer;font-size:0.85rem;transition:all 0.2s;display:flex;align-items:center;gap:0.4rem;color:var(--text);font-family:'DM Sans',sans-serif}
+.theme-toggle:hover{border-color:var(--border2)}
+.toggle-label{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:orbPulse 6s ease-in-out infinite;pointer-events:none}
+.orb1{width:500px;height:500px;background:rgba(255,122,26,0.12);top:-100px;left:-100px}
+.orb2{width:400px;height:400px;background:rgba(245,200,66,0.08);bottom:-50px;right:-80px;animation-delay:2s}
+.orb3{width:300px;height:300px;background:rgba(29,184,122,0.06);top:40%;left:60%;animation-delay:4s}
+@keyframes orbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.rangoli-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:650px;height:650px;opacity:0.05;animation:rangSpin 60s linear infinite;z-index:0;pointer-events:none}
+@keyframes rangSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero-content{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;border:0.5px solid rgba(245,200,66,0.4);padding:0.3rem 1.1rem;border-radius:2px;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.75rem;animation:heroUp 1s 0.1s ease both}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--saffron);display:block;animation:blink 1.5s infinite}
+h1.hero-title{font-family:'Yeseva One',serif;font-size:clamp(4.5rem,11vw,9rem);line-height:0.9;position:relative;z-index:1;animation:heroUp 1s 0.2s ease both}
+.s{background:linear-gradient(135deg,#FF7A1A,#FFB347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.g{background:linear-gradient(135deg,#F5C842,#FFE88A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-year{font-size:clamp(1rem,2.5vw,1.6rem);letter-spacing:0.4em;color:var(--muted);text-transform:uppercase;margin:0.75rem 0 0.5rem;animation:heroUp 1s 0.3s ease both}
+.hero-tagline{font-size:1rem;color:var(--muted);line-height:1.8;max-width:480px;margin:0 auto 2.5rem;animation:heroUp 1s 0.4s ease both}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:heroUp 1s 0.5s ease both}
+.btn-fire{background:linear-gradient(135deg,var(--saffron),var(--gold));color:#080810;padding:0.85rem 2.2rem;border-radius:3px;font-weight:500;font-size:0.85rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.25s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden}
+.btn-fire:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,122,26,0.35)}
+.btn-ghost{border:0.5px solid var(--border2);color:var(--text);padding:0.85rem 2.2rem;border-radius:3px;font-size:0.85rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.25s;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.cd-row{display:flex;gap:2rem;justify-content:center;margin-top:3.5rem;animation:heroUp 1s 0.65s ease both}
+.cd-block{text-align:center}
+.cd-num{font-family:'Yeseva One',serif;font-size:3rem;line-height:1;background:linear-gradient(135deg,var(--gold),#FFE88A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cd-lbl{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem}
+.cd-sep{font-size:2.5rem;color:var(--border);align-self:center;margin-top:-0.5rem}
+.scroll-hint{position:relative;z-index:1;margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:heroUp 1s 0.8s ease both;opacity:0.5}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:scrollPulse 2s infinite}
+.scroll-txt{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+@keyframes scrollPulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+
+/* REVEAL */
+.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:0;transition:opacity 0.75s ease,transform 0.75s ease}
+.reveal{transform:translateY(40px)}.reveal-left{transform:translateX(-44px)}.reveal-right{transform:translateX(44px)}.reveal-scale{transform:scale(0.88)}
+.reveal.in,.reveal-left.in,.reveal-right.in,.reveal-scale.in{opacity:1;transform:none}
+.divider{width:0;height:2px;background:linear-gradient(90deg,var(--saffron),var(--gold));margin:0.75rem 0 1.5rem;transition:width 1s ease}.divider.in{width:40px}
+
+section{padding:6rem 2rem;position:relative}
+.container{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.5rem}
+.sec-title{font-family:'Yeseva One',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.15;margin-bottom:1rem}
+.sec-body{color:var(--muted);line-height:1.85;font-size:0.95rem;max-width:500px}
+
+#about{background:var(--mid)}
+#events{background:var(--bg)}
+#schedule{background:var(--mid)}
+#gallery{background:var(--bg)}
+#winners{background:var(--mid)}
+#poster{background:var(--bg)}
+#map{background:var(--mid)}
+#contact{background:var(--bg)}
+
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-stat{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1.5rem;text-align:center;transition:transform 0.3s,border-color 0.3s}
+.about-stat:hover{transform:translateY(-5px);border-color:var(--border2)}
+.about-stat-num{font-family:'Yeseva One',serif;font-size:2.5rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.about-stat-lbl{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem}
+
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem;margin-top:3rem}
+.ev-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1.6rem;position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+.ev-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--saffron),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.ev-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 16px 40px rgba(0,0,0,0.15)}
+.ev-card:hover::after{transform:scaleX(1)}
+.ev-emoji{font-size:2.2rem;margin-bottom:1rem;display:inline-block;transition:transform 0.3s}
+.ev-card:hover .ev-emoji{transform:scale(1.2) rotate(-5deg)}
+.ev-cat{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.4rem}
+.ev-name{font-family:'Yeseva One',serif;font-size:1.25rem;margin-bottom:0.4rem}
+.ev-desc{font-size:0.83rem;color:var(--muted);line-height:1.65}
+.ev-meta{display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap}
+.ev-tag{font-size:0.7rem;background:rgba(255,122,26,0.1);color:var(--saffron);border:0.5px solid rgba(255,122,26,0.25);padding:0.25rem 0.65rem;border-radius:2px}
+
+.day-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.dtab{padding:0.5rem 1.3rem;border-radius:3px;cursor:pointer;border:0.5px solid var(--border);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.dtab.on{background:var(--saffron);color:#080810;border-color:var(--saffron);font-weight:500}
+.day-panel{display:none;flex-direction:column;gap:0.85rem}.day-panel.on{display:flex}
+.sitem{display:flex;gap:1.25rem;align-items:flex-start;padding:1.1rem 1.4rem;background:var(--card);border-radius:8px;border:0.5px solid var(--border);animation:slideIn 0.4s ease both;transition:border-color 0.2s,transform 0.2s}
+.sitem:hover{border-color:var(--border2);transform:translateX(4px)}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.stime{font-size:0.78rem;color:var(--gold);min-width:68px;font-weight:500;padding-top:2px}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--saffron);margin-top:4px;flex-shrink:0;box-shadow:0 0 6px rgba(255,122,26,0.6)}
+.stitle{font-weight:500;font-size:0.92rem;margin-bottom:0.15rem}
+.smeta{font-size:0.78rem;color:var(--muted)}
+.shighlight{border-color:rgba(255,122,26,0.35)}.shighlight .stitle{color:var(--saffron)}
+
+.gal-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.gtab{padding:0.45rem 1.1rem;border-radius:3px;cursor:pointer;border:0.5px solid var(--border);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.gtab.on{background:var(--gold);color:#080810;border-color:var(--gold);font-weight:500}
+.gal-panel{display:none}.gal-panel.on{display:block}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.gal-item{border-radius:10px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;background:var(--card);border:0.5px solid var(--border);transition:transform 0.3s,box-shadow 0.3s}
+.gal-item:hover{transform:scale(1.03);box-shadow:0 12px 30px rgba(0,0,0,0.2)}
+.gal-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;font-size:2.5rem;transition:transform 0.3s}
+.gal-item:hover .gal-placeholder{transform:scale(1.1)}
+.gal-placeholder span{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.gal-caption{position:absolute;bottom:0;left:0;right:0;padding:0.6rem 0.75rem;background:linear-gradient(transparent,rgba(8,8,16,0.9));font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);transform:translateY(100%);transition:transform 0.3s}
+.gal-item:hover .gal-caption{transform:translateY(0)}
+
+/* WINNERS */
+.coming-soon-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,122,26,0.1);border:0.5px solid rgba(255,122,26,0.3);padding:0.3rem 1rem;border-radius:2px;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--saffron);margin-bottom:2rem}
+.coming-soon-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--saffron);animation:blink 1.5s infinite}
+.leaderboard{background:var(--card);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+.lb-header{display:grid;grid-template-columns:52px 1fr 90px 90px 60px;padding:0.75rem 1.25rem;background:rgba(245,200,66,0.06);border-bottom:0.5px solid var(--border);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.lb-row{display:grid;grid-template-columns:52px 1fr 90px 90px 60px;padding:1rem 1.25rem;border-bottom:0.5px solid rgba(245,200,66,0.07);align-items:center;transition:background 0.2s,transform 0.2s}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:rgba(245,200,66,0.04);transform:translateX(3px)}
+.lb-rank{font-family:'Yeseva One',serif;font-size:1.2rem}
+.rank-1{background:linear-gradient(135deg,var(--gold),#FFE88A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.rank-2{color:var(--silver)}.rank-3{color:var(--bronze)}.rank-other{color:var(--muted);font-size:1rem}
+.lb-team{font-weight:500;font-size:0.9rem}.lb-dept{font-size:0.72rem;color:var(--muted);margin-top:0.1rem}
+.lb-cell{font-size:0.85rem;color:var(--muted);text-align:right}
+.lb-pts{font-weight:500;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:0.95rem;text-align:right}
+.lb-medal{text-align:center;font-size:1.1rem}
+.lb-more-btn{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:rgba(245,200,66,0.04);cursor:pointer;border:none;width:100%;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--gold);letter-spacing:0.08em;transition:background 0.2s;border-top:0.5px solid var(--border)}
+.lb-more-btn:hover{background:rgba(245,200,66,0.1)}
+.winner-filter{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.wftab{padding:0.4rem 1rem;border-radius:3px;cursor:pointer;border:0.5px solid var(--border);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.wftab.on{background:rgba(255,122,26,0.15);color:var(--saffron);border-color:rgba(255,122,26,0.4)}
+.winner-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.wcard{background:var(--card);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;transition:transform 0.3s,border-color 0.3s}
+.wcard:hover{transform:translateY(-4px);border-color:var(--border2)}
+.wcard-head{padding:1.25rem 1.4rem 1rem;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start}
+.wcard-event{font-family:'Yeseva One',serif;font-size:1.1rem}
+.wcard-cat{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-top:0.2rem}
+.wcard-stats{display:flex;gap:1rem;text-align:right}
+.wstat-num{font-family:'Yeseva One',serif;font-size:1.3rem;color:var(--saffron);line-height:1}
+.wstat-lbl{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+.wcard-body{padding:1rem 1.4rem}
+.podium{display:flex;flex-direction:column;gap:0.65rem}
+.podium-row{display:flex;align-items:center;gap:0.85rem;padding:0.6rem 0.85rem;border-radius:6px;background:rgba(255,255,255,0.02);border:0.5px solid transparent;transition:all 0.25s}
+.podium-row:hover{border-color:var(--border);transform:translateX(3px)}
+.podium-pos{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.pos-1{background:rgba(245,200,66,0.12);border:0.5px solid rgba(245,200,66,0.3)}
+.pos-2{background:rgba(192,192,208,0.1);border:0.5px solid rgba(192,192,208,0.25)}
+.pos-3{background:rgba(205,127,50,0.1);border:0.5px solid rgba(205,127,50,0.25)}
+.podium-photo{width:36px;height:36px;border-radius:50%;border:0.5px solid var(--border);flex-shrink:0;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.podium-info{flex:1;min-width:0}
+.podium-team{font-size:0.88rem;font-weight:500}
+.podium-members{font-size:0.72rem;color:var(--muted);margin-top:0.1rem}
+.podium-prize{font-size:0.75rem;color:var(--gold);font-weight:500;white-space:nowrap;margin-left:auto}
+.cs-chip{background:rgba(255,122,26,0.07);border:0.5px dashed rgba(255,122,26,0.3);border-radius:4px;padding:0.5rem 0.75rem;font-size:0.75rem;color:var(--muted);text-align:center;margin-top:0.5rem}
+
+/* ── ANIMATED POSTER ── */
+#poster{background:var(--bg)}
+.poster-wrap{display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap}
+.poster-canvas{flex-shrink:0;width:320px;height:460px;border-radius:16px;overflow:hidden;position:relative;border:0.5px solid var(--border)}
+.poster-bg{position:absolute;inset:0;background:linear-gradient(135deg,#08080F,#0D0D20,#14082A);overflow:hidden}
+.poster-rangoli{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:340px;height:340px;opacity:0.08;animation:rangSpin 30s linear infinite}
+.poster-orb1{position:absolute;width:200px;height:200px;background:rgba(255,122,26,0.2);border-radius:50%;top:-50px;left:-50px;filter:blur(50px);animation:orbPulse 4s infinite}
+.poster-orb2{position:absolute;width:180px;height:180px;background:rgba(245,200,66,0.12);border-radius:50%;bottom:-30px;right:-30px;filter:blur(40px);animation:orbPulse 5s 1s infinite}
+.poster-particles{position:absolute;inset:0}
+.poster-particle{position:absolute;border-radius:50%;animation:floatUp linear infinite;opacity:0}
+.poster-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;height:100%;padding:1.5rem 1rem}
+.poster-college{font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,200,66,0.7);text-align:center;border:0.5px solid rgba(245,200,66,0.25);padding:0.25rem 0.75rem;border-radius:2px}
+.poster-title-wrap{text-align:center}
+.poster-shrunga{font-family:'Yeseva One',serif;font-size:4.2rem;line-height:0.9;background:linear-gradient(135deg,#FF7A1A,#F5C842,#FFE88A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:posterGlow 3s ease-in-out infinite}
+@keyframes posterGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+.poster-2k26{font-size:1rem;letter-spacing:0.45em;color:rgba(245,200,66,0.7);margin-top:0.3rem;text-transform:uppercase}
+.poster-tagline{font-size:0.65rem;color:rgba(244,239,230,0.5);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-top:0.5rem}
+.poster-divline{width:60px;height:0.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.75rem auto}
+.poster-events{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center}
+.poster-ev{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,239,230,0.5);border:0.5px solid rgba(245,200,66,0.15);padding:0.2rem 0.5rem;border-radius:2px}
+.poster-date-wrap{text-align:center;width:100%}
+.poster-date{font-family:'Yeseva One',serif;font-size:1.5rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.poster-venue{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.45);margin-top:0.2rem}
+.poster-bottom{display:flex;justify-content:space-between;align-items:flex-end;width:100%}
+.poster-jitd{font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.4)}
+.poster-logo-sm{font-family:'Yeseva One',serif;font-size:0.85rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.poster-actions{flex:1;display:flex;flex-direction:column;gap:1rem;justify-content:center;min-width:220px}
+.poster-action-title{font-family:'Yeseva One',serif;font-size:1.4rem;margin-bottom:0.25rem}
+.poster-action-sub{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+
+/* ── SOCIAL SHARE ── */
+.share-section{background:var(--card);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.share-title{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.share-btns{display:flex;gap:0.75rem;flex-wrap:wrap}
+.share-btn{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1rem;border-radius:6px;border:0.5px solid var(--border);background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:500;transition:all 0.2s;text-decoration:none;color:var(--text)}
+.share-btn:hover{transform:translateY(-2px)}
+.share-btn.instagram{border-color:rgba(225,48,108,0.3);color:#E1306C}
+.share-btn.instagram:hover{background:rgba(225,48,108,0.08);border-color:rgba(225,48,108,0.5)}
+.share-btn.whatsapp{border-color:rgba(37,211,102,0.3);color:#25D366}
+.share-btn.whatsapp:hover{background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.5)}
+.share-btn.twitter{border-color:rgba(29,161,242,0.3);color:#1DA1F2}
+.share-btn.twitter:hover{background:rgba(29,161,242,0.08);border-color:rgba(29,161,242,0.5)}
+.share-btn.facebook{border-color:rgba(66,103,178,0.3);color:#4267B2}
+.share-btn.facebook:hover{background:rgba(66,103,178,0.08);border-color:rgba(66,103,178,0.5)}
+.share-btn.copy{border-color:var(--border);color:var(--muted)}
+.share-btn.copy:hover{background:rgba(245,200,66,0.06);border-color:var(--border2);color:var(--gold)}
+.share-btn svg{width:16px;height:16px;flex-shrink:0}
+.copy-toast{display:inline-block;font-size:0.72rem;color:var(--green);opacity:0;transition:opacity 0.3s;margin-left:0.5rem}
+.copy-toast.show{opacity:1}
+
+/* ── CAMPUS MAP ── */
+#map{background:var(--mid)}
+.map-container{position:relative;background:var(--map-bg);border:0.5px solid var(--border);border-radius:16px;overflow:hidden;height:480px;transition:background 0.35s}
+.map-svg{width:100%;height:100%}
+.map-pin-wrap{position:absolute;cursor:pointer;transform:translate(-50%,-100%);transition:transform 0.2s}
+.map-pin-wrap:hover{transform:translate(-50%,-100%) scale(1.15)}
+.map-pin{display:flex;flex-direction:column;align-items:center}
+.map-pin-icon{width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:all 0.2s;border:2px solid rgba(255,255,255,0.2)}
+.map-pin-emoji{transform:rotate(45deg);font-size:16px}
+.map-pin-line{width:1.5px;height:10px;background:rgba(255,255,255,0.3)}
+.map-pin-label{background:var(--card);border:0.5px solid var(--border);border-radius:4px;padding:0.2rem 0.5rem;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);white-space:nowrap;margin-top:4px;transition:background 0.35s}
+.map-tooltip{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;min-width:240px;opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:10}
+.map-tooltip.show{opacity:1}
+.map-tooltip-name{font-family:'Yeseva One',serif;font-size:1rem;margin-bottom:0.2rem}
+.map-tooltip-events{font-size:0.75rem;color:var(--muted);line-height:1.6}
+.map-tooltip-badge{display:inline-block;font-size:0.62rem;background:rgba(255,122,26,0.1);color:var(--saffron);border:0.5px solid rgba(255,122,26,0.25);padding:0.15rem 0.45rem;border-radius:2px;margin-right:0.3rem;margin-top:0.3rem}
+.map-legend{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+.map-legend-item{display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:var(--muted)}
+.map-legend-dot{width:10px;height:10px;border-radius:50%}
+
+/* CONTACT */
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.contact-card{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:transform 0.2s,border-color 0.2s}
+.contact-card:hover{transform:translateX(5px);border-color:var(--border2)}
+.cc-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.cc-val{font-size:0.9rem;color:var(--text)}
+.map-placeholder-c{background:var(--card);border:0.5px solid var(--border);border-radius:10px;padding:3rem 2rem;text-align:center;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.map-name-c{font-family:'Yeseva One',serif;font-size:1.2rem;color:var(--gold)}
+.map-addr{font-size:0.85rem;color:var(--muted);line-height:1.7}
+
+/* FULL LB OVERLAY */
+#lb-overlay{position:fixed;inset:0;z-index:500;display:none;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto}
+#lb-overlay.open{display:flex}
+.lb-overlay-bg{position:fixed;inset:0;background:rgba(4,4,10,0.92);backdrop-filter:blur(16px);cursor:pointer}
+.lb-overlay-panel{position:relative;z-index:1;background:var(--card);border:0.5px solid var(--border);border-radius:16px;width:100%;max-width:780px;padding:2.5rem;animation:panelUp 0.4s ease both;margin:auto}
+@keyframes panelUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.lb-overlay-title{font-family:'Yeseva One',serif;font-size:1.8rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lb-overlay-sub{font-size:0.78rem;color:var(--muted);margin-top:0.25rem}
+.lb-close{background:transparent;border:0.5px solid var(--border);color:var(--muted);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.lb-close:hover{background:rgba(255,122,26,0.1);border-color:var(--saffron);color:var(--saffron)}
+.lb-full-table{background:rgba(8,8,16,0.5);border-radius:10px;overflow:hidden;border:0.5px solid var(--border)}
+.lb-full-row{display:grid;grid-template-columns:52px 1fr 90px 90px 60px;padding:0.9rem 1.25rem;border-bottom:0.5px solid rgba(245,200,66,0.07);align-items:center;transition:background 0.2s}
+.lb-full-row:last-child{border-bottom:none}
+.lb-full-row:hover{background:rgba(245,200,66,0.04)}
+.lb-full-row.top3{background:rgba(255,122,26,0.04)}
+.lb-search{width:100%;padding:0.65rem 1rem;background:rgba(8,8,16,0.6);border:0.5px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.85rem;margin-bottom:1rem;outline:none;transition:border-color 0.2s}
+.lb-search:focus{border-color:rgba(255,122,26,0.4)}
+.lb-search::placeholder{color:var(--muted)}
+
+footer{background:var(--mid);border-top:0.5px solid var(--border);padding:3rem 2rem;text-align:center;transition:background 0.35s}
+.ft-logo{font-family:'Yeseva One',serif;font-size:2.2rem;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ft-sub{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin:0.2rem 0 0.75rem}
+.ft-desc{color:var(--muted);font-size:0.82rem;margin-bottom:1.5rem;line-height:1.7}
+.ft-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.ft-links a{color:var(--muted);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.ft-links a:hover{color:var(--gold)}
+.ft-copy{font-size:0.72rem;color:var(--muted);opacity:0.5}
+
+@keyframes heroUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+@media(max-width:700px){
+  nav{padding:0.85rem 1.25rem}.nav-links{display:none}
+  .about-inner,.contact-inner{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .poster-wrap{flex-direction:column;align-items:center}
+  .lb-overlay-panel{padding:1.5rem}
+  .lb-header,.lb-row,.lb-full-row{grid-template-columns:40px 1fr 70px}
+  .lb-cell,.lb-medal{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- LB OVERLAY -->
+<div id="lb-overlay">
+  <div class="lb-overlay-bg" onclick="closeLB()"></div>
+  <div class="lb-overlay-panel">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem">
+      <div><div class="lb-overlay-title">Full Leaderboard</div><div class="lb-overlay-sub">Shrunga 2K26 · All teams ranked by total points</div></div>
+      <button class="lb-close" onclick="closeLB()">✕</button>
+    </div>
+    <input class="lb-search" type="text" placeholder="Search team name…" oninput="searchLB(this.value)" id="lb-search-input"/>
+    <div class="lb-full-table" id="lb-full-table"></div>
+  </div>
+</div>
+
+<nav id="main-nav">
+  <div>
+    <div class="logo-main">Shrunga 2K26</div>
+    <div class="logo-sub">JITD · Davangere</div>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#winners">Winners</a></li>
+      <li><a href="#poster">Poster</a></li>
+      <li><a href="#map">Map</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+      <span id="theme-icon">☀️</span>
+      <span class="toggle-label" id="theme-label">Light</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb orb1"></div><div class="hero-orb orb2"></div><div class="hero-orb orb3"></div>
+  <svg class="rangoli-wrap" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="90" stroke="#F5C842" stroke-width="0.5"/><circle cx="100" cy="100" r="70" stroke="#FF7A1A" stroke-width="0.5"/><circle cx="100" cy="100" r="50" stroke="#F5C842" stroke-width="0.5"/><circle cx="100" cy="100" r="30" stroke="#FF7A1A" stroke-width="0.5"/><circle cx="100" cy="100" r="10" fill="#F5C842"/><line x1="100" y1="10" x2="100" y2="190" stroke="#F5C842" stroke-width="0.4"/><line x1="10" y1="100" x2="190" y2="100" stroke="#F5C842" stroke-width="0.4"/><line x1="27" y1="27" x2="173" y2="173" stroke="#FF7A1A" stroke-width="0.4"/><line x1="173" y1="27" x2="27" y2="173" stroke="#FF7A1A" stroke-width="0.4"/><polygon points="100,15 115,85 185,100 115,115 100,185 85,115 15,100 85,85" stroke="#F5C842" stroke-width="0.4" fill="none"/></svg>
+  <div class="hero-content">
+    <div class="hero-badge"><span></span>Annual Cultural Fest · JITD, Davangere</div>
+    <h1 class="hero-title"><span class="s">Shru</span><span class="g">nga</span></h1>
+    <p class="hero-year">2 K 2 6</p>
+    <p class="hero-tagline">Three days of culture, colour, and celebration — where every talent finds its stage.</p>
+    <div class="hero-cta">
+      <a href="#events" class="btn-fire">Explore Events</a>
+    </div>
+  
+</section>
+
+<!-- ABOUT -->
+<section id="about"><div class="container">
+  <div class="about-inner">
+    <div class="reveal-left">
+      <p class="eyebrow">About the Fest</p><div class="divider"></div>
+      <h2 class="sec-title">Where JITD's spirit comes alive</h2>
+      <p class="sec-body">Shrunga is the flagship annual cultural celebration of Jain Institute of Technology, Davangere. Every year, the campus transforms into a vibrant arena of music, dance, drama, art, and friendly competition.</p>
+      <p class="sec-body" style="margin-top:1rem">Shrunga 2K26 promises bigger stages, more events, and the same heart that has made this fest a tradition to cherish.</p>
+    </div>
+    <div class="about-visual reveal-right">
+      <div class="about-stat reveal-scale" style="transition-delay:0.1s"><div class="about-stat-num">12+</div><div class="about-stat-lbl">Events</div></div>
+      <div class="about-stat reveal-scale" style="transition-delay:0.2s"><div class="about-stat-num">3</div><div class="about-stat-lbl">Days</div></div>
+      <div class="about-stat reveal-scale" style="transition-delay:0.3s"><div class="about-stat-num">1000+</div><div class="about-stat-lbl">Participants</div></div>
+      <div class="about-stat reveal-scale" style="transition-delay:0.4s"><div class="about-stat-num">∞</div><div class="about-stat-lbl">Memories</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- EVENTS -->
+<section id="events"><div class="container">
+  <div class="reveal"><p class="eyebrow">Competitions & Performances</p><div class="divider"></div>
+  <h2 class="sec-title">Events at Shrunga 2K26</h2>
+  <p class="sec-body" style="margin-bottom:3rem">From classical art forms to modern beats — there's a stage for every kind of talent.</p></div>
+  <div class="ev-grid">
+    <div class="ev-card reveal" style="transition-delay:0.05s"><div class="ev-emoji">🎭</div><div class="ev-cat">Drama</div><div class="ev-name">Street Play</div><div class="ev-desc">Teams of 8–12 bring powerful social narratives to life on the open-air stage.</div><div class="ev-meta"><span class="ev-tag">30 min</span><span class="ev-tag">Open Stage</span><span class="ev-tag">Team</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.10s"><div class="ev-emoji">🎵</div><div class="ev-cat">Music</div><div class="ev-name">Battle of Bands</div><div class="ev-desc">Bands compete with original compositions or covers. Live crowd, judges decide.</div><div class="ev-meta"><span class="ev-tag">20 min</span><span class="ev-tag">Amphitheatre</span><span class="ev-tag">Group</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.15s"><div class="ev-emoji">💃</div><div class="ev-cat">Dance</div><div class="ev-name">Fusion Showdown</div><div class="ev-desc">Classical meets contemporary. Group dance blending two or more dance styles.</div><div class="ev-meta"><span class="ev-tag">15 min</span><span class="ev-tag">Main Stage</span><span class="ev-tag">Group</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.20s"><div class="ev-emoji">🎤</div><div class="ev-cat">Music · Solo</div><div class="ev-name">Voice of the Fest</div><div class="ev-desc">The most coveted solo singing title. Kannada, Hindi, and English genres.</div><div class="ev-meta"><span class="ev-tag">5 min</span><span class="ev-tag">Main Stage</span><span class="ev-tag">Solo</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.25s"><div class="ev-emoji">🖌️</div><div class="ev-cat">Visual Arts</div><div class="ev-name">Live Canvas</div><div class="ev-desc">Artists create their masterpiece in real time while the audience watches.</div><div class="ev-meta"><span class="ev-tag">2 hrs</span><span class="ev-tag">Art Pavilion</span><span class="ev-tag">Solo</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.30s"><div class="ev-emoji">🎬</div><div class="ev-cat">Film</div><div class="ev-name">Short Film Premiere</div><div class="ev-desc">Student filmmakers screen their short films on the big screen for the first time.</div><div class="ev-meta"><span class="ev-tag">10 min</span><span class="ev-tag">Auditorium</span><span class="ev-tag">Team</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.35s"><div class="ev-emoji">🥁</div><div class="ev-cat">Percussion</div><div class="ev-name">Drumline Duel</div><div class="ev-desc">Percussion ensembles build rhythms together then break into a competitive battle.</div><div class="ev-meta"><span class="ev-tag">12 min</span><span class="ev-tag">Open Grounds</span><span class="ev-tag">Group</span></div></div>
+    <div class="ev-card reveal" style="transition-delay:0.40s"><div class="ev-emoji">🤸</div><div class="ev-cat">Comedy & Skit</div><div class="ev-name">Hasya Nataka</div><div class="ev-desc">Light-hearted comedy skits in Kannada or Hindi. Bring the laughs, take the trophy.</div><div class="ev-meta"><span class="ev-tag">15 min</span><span class="ev-tag">Open Stage</span><span class="ev-tag">Team</span></div></div>
+  </div>
+</div></section>
+
+<!-- SCHEDULE -->
+<section id="schedule"><div class="container reveal">
+  <p class="eyebrow">Day-by-day</p><div class="divider"></div>
+  <h2 class="sec-title">Fest Schedule</h2>
+  <p class="sec-body" style="margin-bottom:2.5rem">Three days packed with culture and competition.</p>
+  <div class="day-tabs">
+    <button class="dtab on" onclick="switchDay('d1',this)">Day 1</button>
+    <button class="dtab" onclick="switchDay('d2',this)">Day 2</button>
+    <button class="dtab" onclick="switchDay('d3',this)">Day 3</button>
+  </div>
+  <div id="d1" class="day-panel on">
+    <div class="sitem shighlight"><div class="stime">9:00 AM</div><div class="sdot"></div><div><div class="stitle">Inaugural Ceremony & Lamp Lighting</div><div class="smeta">Main Auditorium · Chief Guest Address</div></div></div>
+    <div class="sitem"><div class="stime">10:30 AM</div><div class="sdot"></div><div><div class="stitle">Live Canvas — Visual Arts Competition</div><div class="smeta">Art Pavilion</div></div></div>
+    <div class="sitem"><div class="stime">12:00 PM</div><div class="sdot"></div><div><div class="stitle">Hasya Nataka — Comedy Skit Heats</div><div class="smeta">Open Stage · Preliminary rounds</div></div></div>
+    <div class="sitem"><div class="stime">2:30 PM</div><div class="sdot"></div><div><div class="stitle">Street Play — Heats</div><div class="smeta">Open-Air Stage · 4 teams</div></div></div>
+    <div class="sitem"><div class="stime">5:00 PM</div><div class="sdot"></div><div><div class="stitle">Cultural Parade & Flash Mob</div><div class="smeta">Campus Grounds</div></div></div>
+    <div class="sitem shighlight"><div class="stime">7:00 PM</div><div class="sdot"></div><div><div class="stitle">Opening Night Concert</div><div class="smeta">Main Stage</div></div></div>
+  </div>
+  <div id="d2" class="day-panel">
+    <div class="sitem"><div class="stime">10:00 AM</div><div class="sdot"></div><div><div class="stitle">Short Film Premiere</div><div class="smeta">Main Auditorium</div></div></div>
+    <div class="sitem"><div class="stime">11:30 AM</div><div class="sdot"></div><div><div class="stitle">Voice of the Fest — Heats</div><div class="smeta">Main Stage · 20 contestants</div></div></div>
+    <div class="sitem"><div class="stime">2:00 PM</div><div class="sdot"></div><div><div class="stitle">Drumline Duel</div><div class="smeta">Open Grounds</div></div></div>
+    <div class="sitem"><div class="stime">3:30 PM</div><div class="sdot"></div><div><div class="stitle">Battle of Bands</div><div class="smeta">Amphitheatre · 6 bands</div></div></div>
+    <div class="sitem shighlight"><div class="stime">7:00 PM</div><div class="sdot"></div><div><div class="stitle">Classical Music & Dance Evening</div><div class="smeta">Auditorium · Faculty & Alumni</div></div></div>
+  </div>
+  <div id="d3" class="day-panel">
+    <div class="sitem"><div class="stime">10:30 AM</div><div class="sdot"></div><div><div class="stitle">Fusion Dance Showdown — Finals</div><div class="smeta">Main Stage · Top 6 teams</div></div></div>
+    <div class="sitem"><div class="stime">12:30 PM</div><div class="sdot"></div><div><div class="stitle">Street Play — Grand Finale</div><div class="smeta">Open-Air Stage</div></div></div>
+    <div class="sitem"><div class="stime">3:00 PM</div><div class="sdot"></div><div><div class="stitle">Voice of the Fest — Grand Finale</div><div class="smeta">Main Stage</div></div></div>
+    <div class="sitem shighlight"><div class="stime">7:30 PM</div><div class="sdot"></div><div><div class="stitle">Prize Distribution & Closing Ceremony</div><div class="smeta">Main Auditorium</div></div></div>
+  </div>
+</div></section>
+
+<!-- GALLERY -->
+<section id="gallery"><div class="container">
+  <div class="reveal"><p class="eyebrow">Memories from Shrunga 2K24</p><div class="divider"></div>
+  <h2 class="sec-title">Gallery</h2>
+  <p class="sec-body" style="margin-bottom:2rem">A glimpse of the energy and colour from past editions.</p>
+  <div class="gal-tabs">
+    <button class="gtab on" onclick="switchGal('all',this)">All</button>
+    <button class="gtab" onclick="switchGal('dance',this)">Dance</button>
+    <button class="gtab" onclick="switchGal('music',this)">Music</button>
+    <button class="gtab" onclick="switchGal('drama',this)">Drama</button>
+    <button class="gtab" onclick="switchGal('ceremony',this)">Ceremony</button>
+  </div></div>
+  <div id="gall-all" class="gal-panel on reveal"><div class="gal-grid">
+    <div class="gal-item"><div class="gal-placeholder">🎆<span>Opening Night</span></div><div class="gal-caption">Opening Night</div></div>
+    <div class="gal-item"><div class="gal-placeholder">💃<span>Fusion Dance</span></div><div class="gal-caption">Fusion Dance Finals</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🎸<span>Battle of Bands</span></div><div class="gal-caption">Battle of Bands</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🎭<span>Street Play</span></div><div class="gal-caption">Street Play</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🖌️<span>Live Canvas</span></div><div class="gal-caption">Live Canvas</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🏆<span>Awards Night</span></div><div class="gal-caption">Awards Night</div></div>
+  </div></div>
+  <div id="gall-dance" class="gal-panel"><div class="gal-grid">
+    <div class="gal-item"><div class="gal-placeholder">💃<span>Fusion Finals</span></div><div class="gal-caption">Fusion Finals</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🩰<span>Classical</span></div><div class="gal-caption">Classical Evening</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🎉<span>Flash Mob</span></div><div class="gal-caption">Flash Mob</div></div>
+  </div></div>
+  <div id="gall-music" class="gal-panel"><div class="gal-grid">
+    <div class="gal-item"><div class="gal-placeholder">🎸<span>Bands Night</span></div><div class="gal-caption">Battle of Bands</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🎤<span>Voice Finals</span></div><div class="gal-caption">Voice of the Fest</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🥁<span>Drumline</span></div><div class="gal-caption">Drumline Duel</div></div>
+  </div></div>
+  <div id="gall-drama" class="gal-panel"><div class="gal-grid">
+    <div class="gal-item"><div class="gal-placeholder">🎭<span>Street Play</span></div><div class="gal-caption">Street Play Heats</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🤸<span>Hasya Nataka</span></div><div class="gal-caption">Hasya Nataka</div></div>
+  </div></div>
+  <div id="gall-ceremony" class="gal-panel"><div class="gal-grid">
+    <div class="gal-item"><div class="gal-placeholder">🪔<span>Inauguration</span></div><div class="gal-caption">Inaugural Ceremony</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🏆<span>Awards</span></div><div class="gal-caption">Prize Distribution</div></div>
+    <div class="gal-item"><div class="gal-placeholder">🎆<span>Closing</span></div><div class="gal-caption">Closing Night</div></div>
+  </div></div>
+</div></section>
+
+<!-- WINNERS -->
+<section id="winners"><div class="container">
+  <div class="reveal"><p class="eyebrow">Hall of Fame</p><div class="divider"></div>
+  <h2 class="sec-title">Winners & Results</h2>
+  <div class="coming-soon-badge"><span></span>Results announced after the fest</div></div>
+  <div class="reveal">
+    <h3 style="font-family:'Yeseva One',serif;font-size:1.3rem;margin-bottom:1rem;color:var(--gold)">Overall Leaderboard</h3>
+    <div class="leaderboard">
+      <div class="lb-header"><div>#</div><div>Team</div><div style="text-align:right">Events Won</div><div style="text-align:right">Total Pts</div><div style="text-align:center">Medal</div></div>
+      <div class="lb-row"><div class="lb-rank rank-1">1</div><div><div class="lb-team">— To be announced —</div><div class="lb-dept">After Shrunga 2K26</div></div><div class="lb-cell">—</div><div class="lb-pts">—</div><div class="lb-medal">🥇</div></div>
+      <div class="lb-row"><div class="lb-rank rank-2">2</div><div><div class="lb-team">— To be announced —</div><div class="lb-dept">After Shrunga 2K26</div></div><div class="lb-cell">—</div><div class="lb-pts">—</div><div class="lb-medal">🥈</div></div>
+      <div class="lb-row"><div class="lb-rank rank-3">3</div><div><div class="lb-team">— To be announced —</div><div class="lb-dept">After Shrunga 2K26</div></div><div class="lb-cell">—</div><div class="lb-pts">—</div><div class="lb-medal">🥉</div></div>
+      <div class="lb-row"><div class="lb-rank rank-other">4</div><div><div class="lb-team">— To be announced —</div><div class="lb-dept">After Shrunga 2K26</div></div><div class="lb-cell">—</div><div class="lb-pts">—</div><div class="lb-medal" style="color:var(--muted)">—</div></div>
+      <div class="lb-row"><div class="lb-rank rank-other">5</div><div><div class="lb-team">— To be announced —</div><div class="lb-dept">After Shrunga 2K26</div></div><div class="lb-cell">—</div><div class="lb-pts">—</div><div class="lb-medal" style="color:var(--muted)">—</div></div>
+      <button class="lb-more-btn" onclick="openLB()"><span>View full leaderboard — all teams & rankings</span><span>→</span></button>
+    </div>
+  </div>
+  <div class="reveal" style="transition-delay:0.15s">
+    <h3 style="font-family:'Yeseva One',serif;font-size:1.3rem;margin:2.5rem 0 1rem;color:var(--gold)">Event-wise Winners</h3>
+    <div class="winner-filter">
+      <button class="wftab on" onclick="filterW('all',this)">All Events</button>
+      <button class="wftab" onclick="filterW('drama',this)">Drama</button>
+      <button class="wftab" onclick="filterW('music',this)">Music</button>
+      <button class="wftab" onclick="filterW('dance',this)">Dance</button>
+      <button class="wftab" onclick="filterW('arts',this)">Arts & Film</button>
+    </div>
+    <div class="winner-cards">
+      <div class="wcard" data-cat="drama"><div class="wcard-head"><div><div class="wcard-event">Street Play</div><div class="wcard-cat">Drama</div></div><div class="wcard-stats"><div><div class="wstat-num">8</div><div class="wstat-lbl">Teams</div></div><div><div class="wstat-num">3</div><div class="wstat-lbl">Rounds</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">🎭</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹5,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">🎭</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹3,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">🎭</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,500</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+      <div class="wcard" data-cat="music"><div class="wcard-head"><div><div class="wcard-event">Battle of Bands</div><div class="wcard-cat">Music</div></div><div class="wcard-stats"><div><div class="wstat-num">6</div><div class="wstat-lbl">Bands</div></div><div><div class="wstat-num">2</div><div class="wstat-lbl">Rounds</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">🎸</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹5,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">🎸</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹3,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">🎸</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,500</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+      <div class="wcard" data-cat="dance"><div class="wcard-head"><div><div class="wcard-event">Fusion Showdown</div><div class="wcard-cat">Dance</div></div><div class="wcard-stats"><div><div class="wstat-num">10</div><div class="wstat-lbl">Teams</div></div><div><div class="wstat-num">3</div><div class="wstat-lbl">Rounds</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">💃</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹5,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">💃</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹3,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">💃</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,500</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+      <div class="wcard" data-cat="music"><div class="wcard-head"><div><div class="wcard-event">Voice of the Fest</div><div class="wcard-cat">Music · Solo</div></div><div class="wcard-stats"><div><div class="wstat-num">20</div><div class="wstat-lbl">Soloists</div></div><div><div class="wstat-num">2</div><div class="wstat-lbl">Rounds</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">🎤</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹4,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">🎤</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹2,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">🎤</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,000</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+      <div class="wcard" data-cat="arts"><div class="wcard-head"><div><div class="wcard-event">Live Canvas</div><div class="wcard-cat">Visual Arts</div></div><div class="wcard-stats"><div><div class="wstat-num">15</div><div class="wstat-lbl">Artists</div></div><div><div class="wstat-num">1</div><div class="wstat-lbl">Round</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">🖌️</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹3,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">🖌️</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹2,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">🖌️</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,000</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+      <div class="wcard" data-cat="arts"><div class="wcard-head"><div><div class="wcard-event">Short Film Premiere</div><div class="wcard-cat">Film</div></div><div class="wcard-stats"><div><div class="wstat-num">8</div><div class="wstat-lbl">Films</div></div><div><div class="wstat-num">1</div><div class="wstat-lbl">Round</div></div></div></div><div class="wcard-body"><div class="podium"><div class="podium-row"><div class="podium-pos pos-1">🥇</div><div class="podium-photo">🎬</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹4,000</div></div><div class="podium-row"><div class="podium-pos pos-2">🥈</div><div class="podium-photo">🎬</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹2,000</div></div><div class="podium-row"><div class="podium-pos pos-3">🥉</div><div class="podium-photo">🎬</div><div class="podium-info"><div class="podium-team">— TBA —</div><div class="podium-members">After Shrunga 2K26</div></div><div class="podium-prize">₹1,000</div></div></div><div class="cs-chip">🏆 Results after Shrunga 2K26</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ANIMATED POSTER + SOCIAL SHARE -->
+<section id="poster"><div class="container">
+  <div class="reveal"><p class="eyebrow">Share the Fest</p><div class="divider"></div>
+  <h2 class="sec-title">Official Fest Poster</h2>
+  <p class="sec-body" style="margin-bottom:2.5rem">Download or share directly to your social media and spread the Shrunga spirit!</p></div>
+  <div class="poster-wrap reveal">
+    <!-- POSTER -->
+    <div class="poster-canvas" id="poster-canvas">
+      <div class="poster-bg">
+        <svg class="poster-rangoli" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="90" stroke="#F5C842" stroke-width="0.5"/><circle cx="100" cy="100" r="70" stroke="#FF7A1A" stroke-width="0.5"/><circle cx="100" cy="100" r="50" stroke="#F5C842" stroke-width="0.5"/><circle cx="100" cy="100" r="30" stroke="#FF7A1A" stroke-width="0.5"/><circle cx="100" cy="100" r="10" fill="#F5C842"/><line x1="100" y1="10" x2="100" y2="190" stroke="#F5C842" stroke-width="0.4"/><line x1="10" y1="100" x2="190" y2="100" stroke="#F5C842" stroke-width="0.4"/><polygon points="100,15 115,85 185,100 115,115 100,185 85,115 15,100 85,85" stroke="#F5C842" stroke-width="0.4" fill="none"/></svg>
+        <div class="poster-orb1"></div><div class="poster-orb2"></div>
+        <div class="poster-particles" id="poster-particles"></div>
+      </div>
+      <div class="poster-content">
+        <div class="poster-college">Jain Institute of Technology · Davangere</div>
+        <div class="poster-title-wrap">
+          <div class="poster-shrunga">Shrunga</div>
+          <div class="poster-2k26">2 K 2 6</div>
+          <div class="poster-tagline">Where Every Talent Finds Its Stage</div>
+          <div class="poster-divline"></div>
+          <div class="poster-events">
+            <span class="poster-ev">Dance</span><span class="poster-ev">Music</span><span class="poster-ev">Drama</span>
+            <span class="poster-ev">Art</span><span class="poster-ev">Film</span><span class="poster-ev">Comedy</span>
+          </div>
+        </div>
+        <div class="poster-date-wrap">
+          <div class="poster-date">Apr 15–17, 2026</div>
+          <div class="poster-venue">JITD Campus · Davangere, Karnataka</div>
+        </div>
+        <div class="poster-bottom">
+          <div class="poster-jitd">jitd.ac.in/shrunga2k26</div>
+          <div class="poster-logo-sm">S2K26</div>
+        </div>
+      </div>
+    </div>
+    <!-- ACTIONS -->
+    <div class="poster-actions">
+      <div class="poster-action-title">Share Shrunga 2K26</div>
+      <div class="poster-action-sub">Spread the word! Share on your favourite platform or save the poster to your device.</div>
+      <div class="share-section">
+        <div class="share-title">Share on social media</div>
+        <div class="share-btns">
+          <a class="share-btn instagram" href="https://www.instagram.com/" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a class="share-btn whatsapp" href="https://wa.me/?text=Check%20out%20Shrunga%202K26%20-%20Annual%20Cultural%20Fest%20at%20JITD%20Davangere!%20Apr%2015-17%202026.%20jitd.ac.in/shrunga2k26" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.539 4.07 1.484 5.789L0 24l6.395-1.673A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.373l-.36-.213-3.713.972.99-3.617-.235-.373A9.786 9.786 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+            WhatsApp
+          </a>
+          <a class="share-btn twitter" href="https://twitter.com/intent/tweet?text=Excited%20for%20Shrunga%202K26%20%F0%9F%8E%89%20Annual%20Cultural%20Fest%20at%20JITD%20Davangere!%20April%2015-17%202026.%20%23Shrunga2K26%20%23JITD&url=https://jitd.ac.in/shrunga2k26" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Twitter / X
+          </a>
+          <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://jitd.ac.in/shrunga2k26" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+      <div class="share-section">
+        <div class="share-title">Copy link</div>
+        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap">
+          <div style="flex:1;background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:0.6rem 0.85rem;font-size:0.78rem;color:var(--muted);min-width:160px">jitd.ac.in/shrunga2k26</div>
+          <button class="share-btn copy" onclick="copyLink()" style="white-space:nowrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+          <span class="copy-toast" id="copy-toast">Copied!</span>
+        </div>
+      </div>
+      <div class="share-section">
+        <div class="share-title">Follow official accounts</div>
+        <div class="share-btns">
+          <a class="share-btn instagram" href="https://www.instagram.com/" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            @shrunga2k26
+          </a>
+          <a class="share-btn whatsapp" href="https://wa.me/919800000000" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.539 4.07 1.484 5.789L0 24l6.395-1.673A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.373l-.36-.213-3.713.972.99-3.617-.235-.373A9.786 9.786 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+            WhatsApp Updates
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CAMPUS MAP -->
+<section id="map"><div class="container">
+  <div class="reveal"><p class="eyebrow">Find Your Way</p><div class="divider"></div>
+  <h2 class="sec-title">Campus Venue Map</h2>
+  <p class="sec-body" style="margin-bottom:2rem">Tap any pin to see which events are happening at that venue.</p></div>
+  <div class="reveal" style="position:relative">
+    <div class="map-container" id="map-container">
+      <svg class="map-svg" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+        <rect width="800" height="480" fill="var(--map-bg)"/>
+        <!-- roads -->
+        <rect x="0" y="220" width="800" height="40" fill="var(--map-road)" rx="0"/>
+        <rect x="360" y="0" width="40" height="480" fill="var(--map-road)" rx="0"/>
+        <rect x="0" y="380" width="800" height="30" fill="var(--map-road2)" rx="0"/>
+        <rect x="180" y="0" width="25" height="220" fill="var(--map-road2)" rx="0"/>
+        <rect x="580" y="260" width="25" height="220" fill="var(--map-road2)" rx="0"/>
+        <!-- road labels -->
+        <text x="400" y="214" text-anchor="middle" fill="var(--map-label)" font-size="10" font-family="'DM Sans',sans-serif" letter-spacing="3">BH ROAD</text>
+        <!-- campus blocks -->
+        <rect x="50" y="50" width="120" height="80" rx="6" fill="rgba(255,122,26,0.08)" stroke="rgba(255,122,26,0.2)" stroke-width="0.5"/>
+        <text x="110" y="95" text-anchor="middle" fill="rgba(244,239,230,0.4)" font-size="9" font-family="'DM Sans',sans-serif">MAIN BLOCK</text>
+        <rect x="50" y="260" width="110" height="80" rx="6" fill="rgba(245,200,66,0.06)" stroke="rgba(245,200,66,0.15)" stroke-width="0.5"/>
+        <text x="105" y="305" text-anchor="middle" fill="rgba(244,239,230,0.4)" font-size="9" font-family="'DM Sans',sans-serif">SPORTS GROUND</text>
+        <rect x="420" y="50" width="130" height="70" rx="6" fill="rgba(29,184,122,0.06)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <text x="485" y="89" text-anchor="middle" fill="rgba(244,239,230,0.4)" font-size="9" font-family="'DM Sans',sans-serif">ADMIN BLOCK</text>
+        <rect x="620" y="50" width="120" height="80" rx="6" fill="rgba(245,200,66,0.05)" stroke="rgba(245,200,66,0.12)" stroke-width="0.5"/>
+        <text x="680" y="95" text-anchor="middle" fill="rgba(244,239,230,0.4)" font-size="9" font-family="'DM Sans',sans-serif">LABS BLOCK</text>
+        <rect x="420" y="290" width="140" height="70" rx="6" fill="rgba(255,122,26,0.05)" stroke="rgba(255,122,26,0.12)" stroke-width="0.5"/>
+        <text x="490" y="330" text-anchor="middle" fill="rgba(244,239,230,0.4)" font-size="9" font-family="'DM Sans',sans-serif">HOSTEL BLOCK</text>
+        <!-- trees dots -->
+        <circle cx="250" cy="80" r="8" fill="rgba(29,184,122,0.12)" stroke="rgba(29,184,122,0.2)" stroke-width="0.5"/>
+        <circle cx="270" cy="100" r="6" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <circle cx="230" cy="110" r="7" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <circle cx="640" cy="290" r="8" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <circle cx="660" cy="310" r="6" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <circle cx="200" cy="360" r="7" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <circle cx="550" cy="160" r="8" fill="rgba(29,184,122,0.1)" stroke="rgba(29,184,122,0.15)" stroke-width="0.5"/>
+        <!-- entrance -->
+        <rect x="375" y="430" width="50" height="20" rx="3" fill="rgba(255,122,26,0.15)" stroke="rgba(255,122,26,0.3)" stroke-width="0.5"/>
+        <text x="400" y="444" text-anchor="middle" fill="rgba(255,122,26,0.8)" font-size="8" font-family="'DM Sans',sans-serif" letter-spacing="1">ENTRANCE</text>
+      </svg>
+      <!-- PINS -->
+      <div class="map-pin-wrap" style="left:18%;top:38%" onclick="showPin(0)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#FF7A1A">
+            <span class="map-pin-emoji">🎤</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Main Stage</div>
+        </div>
+      </div>
+      <div class="map-pin-wrap" style="left:62%;top:18%" onclick="showPin(1)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#8B5CF6">
+            <span class="map-pin-emoji">🎭</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Auditorium</div>
+        </div>
+      </div>
+      <div class="map-pin-wrap" style="left:80%;top:42%" onclick="showPin(2)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#1DB87A">
+            <span class="map-pin-emoji">🎵</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Amphitheatre</div>
+        </div>
+      </div>
+      <div class="map-pin-wrap" style="left:45%;top:72%" onclick="showPin(3)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#F5C842">
+            <span class="map-pin-emoji">🖌️</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Art Pavilion</div>
+        </div>
+      </div>
+      <div class="map-pin-wrap" style="left:28%;top:72%" onclick="showPin(4)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#E1306C">
+            <span class="map-pin-emoji">🎪</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Open Stage</div>
+        </div>
+      </div>
+      <div class="map-pin-wrap" style="left:68%;top:68%" onclick="showPin(5)">
+        <div class="map-pin">
+          <div class="map-pin-icon" style="background:#FF7A1A">
+            <span class="map-pin-emoji">🏃</span>
+          </div>
+          <div class="map-pin-line"></div>
+          <div class="map-pin-label">Open Grounds</div>
+        </div>
+      </div>
+      <!-- tooltip -->
+      <div class="map-tooltip" id="map-tooltip">
+        <div class="map-tooltip-name" id="tt-name">Main Stage</div>
+        <div class="map-tooltip-events" id="tt-events">Loading...</div>
+        <div id="tt-badges"></div>
+      </div>
+    </div>
+    <div class="map-legend">
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#FF7A1A"></div>Main Stage / Open Grounds</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#8B5CF6"></div>Auditorium</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#1DB87A"></div>Amphitheatre</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#F5C842"></div>Art Pavilion</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#E1306C"></div>Open Stage</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact"><div class="container">
+  <div class="contact-inner">
+    <div class="reveal-left">
+      <p class="eyebrow">Get in touch</p><div class="divider"></div>
+      <h2 class="sec-title">Contact & Venue</h2>
+      <p class="sec-body">Reach out to the Shrunga cultural committee for queries, collaborations, or sponsorships.</p>
+      <div class="contact-cards">
+        <div class="contact-card reveal" style="transition-delay:0.1s"><div style="font-size:1.4rem">📍</div><div><div class="cc-label">Venue</div><div class="cc-val">Jain Institute of Technology, Davangere</div></div></div>
+        <div class="contact-card reveal" style="transition-delay:0.15s"><div style="font-size:1.4rem">📧</div><div><div class="cc-label">Email</div><div class="cc-val">shrunga@jitd.ac.in</div></div></div>
+        <div class="contact-card reveal" style="transition-delay:0.2s"><div style="font-size:1.4rem">📞</div><div><div class="cc-label">Cultural Committee</div><div class="cc-val">+91 98XXX XXXXX</div></div></div>
+        <div class="contact-card reveal" style="transition-delay:0.25s"><div style="font-size:1.4rem">🌐</div><div><div class="cc-label">College Website</div><div class="cc-val">www.jitd.ac.in</div></div></div>
+      </div>
+    </div>
+    <div class="map-placeholder-c reveal-right">
+      <div style="font-size:3rem">📌</div>
+      <div class="map-name-c">JITD · Davangere</div>
+      <div class="map-addr">Jain Institute of Technology<br/>B.H. Road, Davangere<br/>Karnataka – 577 003, India</div>
+      <a href="https://maps.google.com/?q=Jain+Institute+of+Technology+Davangere" target="_blank" class="btn-fire" style="font-size:0.78rem;padding:0.65rem 1.5rem;margin-top:0.5rem">Open in Maps</a>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="ft-logo">Shrunga 2K26</div>
+  <div class="ft-sub">Annual Cultural Fest · JITD, Davangere</div>
+  <p class="ft-desc">Organised by the Cultural Committee, Student Affairs Division<br/>Jain Institute of Technology, Davangere</p>
+  <div class="ft-links">
+    <a href="#about">About</a><a href="#events">Events</a><a href="#schedule">Schedule</a>
+    <a href="#gallery">Gallery</a><a href="#winners">Winners</a><a href="#poster">Poster</a>
+    <a href="#map">Map</a><a href="#contact">Contact</a>
+  </div>
+  <p class="ft-copy">© 2026 Shrunga Cultural Fest · JITD Davangere. All rights reserved.</p>
+</footer>
+
+<script>
+/* PARTICLES */
+const pc=document.getElementById('particles');
+['rgba(255,122,26,','rgba(245,200,66,','rgba(29,184,122,'].forEach(c=>{
+  for(let i=0;i<9;i++){const d=document.createElement('div');d.className='particle';const s=Math.random()*5+3;d.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c}${Math.random()*0.4+0.2});animation-duration:${Math.random()*20+15}s;animation-delay:${Math.random()*18}s`;pc.appendChild(d);}
+});
+const pp=document.getElementById('poster-particles');
+for(let i=0;i<12;i++){const d=document.createElement('div');d.className='poster-particle';const s=Math.random()*4+2;const c=['rgba(255,122,26,','rgba(245,200,66,'];d.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c[i%2]}${Math.random()*0.6+0.3});animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s`;pp.appendChild(d);}
+
+/* THEME TOGGLE */
+let dark=true;
+function toggleTheme(){
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('theme-icon').textContent=dark?'☀️':'🌙';
+  document.getElementById('theme-label').textContent=dark?'Light':'Dark';
+}
+
+/* NAV */
+window.addEventListener('scroll',()=>document.getElementById('main-nav').classList.toggle('scrolled',scrollY>60),{passive:true});
+
+/* REVEAL */
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.divider').forEach(el=>io.observe(el));
+
+/* TABS */
+function switchDay(id,btn){document.querySelectorAll('.day-panel').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.dtab').forEach(e=>e.classList.remove('on'));document.getElementById(id).classList.add('on');btn.classList.add('on')}
+function switchGal(cat,btn){document.querySelectorAll('.gal-panel').forEach(e=>e.classList.remove('on'));document.querySelectorAll('.gtab').forEach(e=>e.classList.remove('on'));document.getElementById('gall-'+cat).classList.add('on');btn.classList.add('on')}
+function filterW(cat,btn){document.querySelectorAll('.wftab').forEach(e=>e.classList.remove('on'));btn.classList.add('on');document.querySelectorAll('.wcard').forEach(c=>c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none')}
+
+/* COUNTDOWN */
+function tick(){const t=new Date('2026-04-15T09:00:00')-new Date();if(t<=0){['d','h','m','s'].forEach(id=>document.getElementById('cd-'+id).textContent='00');return}document.getElementById('cd-d').textContent=String(Math.floor(t/864e5)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor(t%864e5/36e5)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor(t%36e5/6e4)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor(t%6e4/1e3)).padStart(2,'0')}
+tick();setInterval(tick,1000);
+
+/* COPY LINK */
+function copyLink(){
+  try{navigator.clipboard.writeText('https://jitd.ac.in/shrunga2k26')}catch(e){}
+  const t=document.getElementById('copy-toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+/* MAP PINS */
+const venues=[
+  {name:'Main Stage',events:'Voice of the Fest · Fusion Dance Showdown · Opening Night Concert · Prize Distribution',badges:['Day 1','Day 2','Day 3']},
+  {name:'Main Auditorium',events:'Inaugural Ceremony · Short Film Premiere · Classical Evening · Closing Ceremony',badges:['Day 1','Day 2','Day 3']},
+  {name:'Amphitheatre',events:'Battle of Bands',badges:['Day 2']},
+  {name:'Art Pavilion',events:'Live Canvas — Visual Arts Competition',badges:['Day 1']},
+  {name:'Open Stage',events:'Street Play Heats & Finals · Hasya Nataka',badges:['Day 1','Day 3']},
+  {name:'Open Grounds',events:'Drumline Duel · Cultural Parade & Flash Mob',badges:['Day 1','Day 2']},
+];
+let activePin=-1;
+function showPin(i){
+  const tt=document.getElementById('map-tooltip');
+  if(activePin===i){tt.classList.remove('show');activePin=-1;return;}
+  activePin=i;
+  document.getElementById('tt-name').textContent=venues[i].name;
+  document.getElementById('tt-events').textContent=venues[i].events;
+  document.getElementById('tt-badges').innerHTML=venues[i].badges.map(b=>`<span class="map-tooltip-badge">${b}</span>`).join('');
+  tt.classList.add('show');
+}
+document.getElementById('map-container').addEventListener('click',e=>{if(!e.target.closest('.map-pin-wrap')){document.getElementById('map-tooltip').classList.remove('show');activePin=-1;}});
+
+/* LEADERBOARD */
+const allTeams=Array.from({length:12},(_,i)=>({rank:i+1,team:'— To be announced —',members:'After Shrunga 2K26',won:'—',pts:'—',medal:i===0?'🥇':i===1?'🥈':i===2?'🥉':''}));
+function renderLB(list){document.getElementById('lb-full-table').innerHTML=`<div class="lb-full-row" style="background:rgba(245,200,66,0.06);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)"><div>#</div><div>Team</div><div style="text-align:right">Won</div><div style="text-align:right">Pts</div><div style="text-align:center">Medal</div></div>`+list.map((r,i)=>`<div class="lb-full-row${r.rank<=3?' top3':''}"><div class="lb-rank ${r.rank===1?'rank-1':r.rank===2?'rank-2':r.rank===3?'rank-3':'rank-other'}">${r.rank}</div><div><div class="lb-team">${r.team}</div><div class="lb-dept">${r.members}</div></div><div class="lb-cell">${r.won}</div><div class="lb-pts">${r.pts}</div><div class="lb-medal">${r.medal||'—'}</div></div>`).join('')}
+function openLB(){renderLB(allTeams);document.getElementById('lb-overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeLB(){document.getElementById('lb-overlay').classList.remove('open');document.body.style.overflow='';document.getElementById('lb-search-input').value=''}
+function searchLB(q){const f=q?allTeams.filter(r=>r.team.toLowerCase().includes(q.toLowerCase())):allTeams;renderLB(f.length?f:allTeams)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
+</script>
+</body>
+</html>
